@@ -40,7 +40,9 @@ for i in range(0, nz):
             nodes[i*ny*nx+j*nx+k,:] = (k*dx, j*dy, i*dz)
 
 
-plt.scatter(nodes[:, 0], nodes[:, 1], nodes[:, 2])
+fig = plt.figure()
+ax = fig.add_subplot(projection='3d')
+ax.plot(nodes[:, 0], nodes[:, 1], nodes[:, 2],'.')
 plt.show()
 
 
