@@ -40,10 +40,32 @@ for i in range(0, nz):
             nodes[i*ny*nx+j*nx+k,:] = (k*dx, j*dy, i*dz)
 
 
+
 fig = plt.figure()
 ax = fig.add_subplot(projection='3d')
-ax.plot(nodes[:, 0], nodes[:, 1], nodes[:, 2],'.')
+ax.plot(nodes[:, 0], nodes[:, 1], nodes[:, 2], '.')
 plt.show()
+
+# create linear hexahedral elements
+nels = (nx - 1) * (ny - 1) * (nz - 1)
+elements = np.zeros((nels, 8), dtype = int)
+
+el_no = 0
+icount = 1
+while el_no < nels:
+    if (not (icount % nx) == 0) and icount%(nx*ny) < nx * (ny-1):
+        n1 = icount
+        n2 = n1 + 1
+        n3 = n2 + nx
+        n4 = n3 - 1
+        n5 = n1 + nx * ny
+        n6 = n2 + nx * ny
+        n7 = n3 + nx * ny
+        n8 = n4 + nx * ny
+        elements[el_no, :] = [n1, n2, n3, n4, n5, n6, n7, n8]
+        el_no = el_no + 1
+    icount = icount + 1
+
 
 
 
